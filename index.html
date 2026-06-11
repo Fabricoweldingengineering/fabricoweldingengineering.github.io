@@ -129,10 +129,11 @@
   .hero{position:relative;min-height:94svh;display:flex;align-items:center;background:#f3f4f6;color:var(--ink);overflow:hidden;isolation:isolate}
   .hero-grid-bg{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(21,23,26,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(21,23,26,.05) 1px,transparent 1px);background-size:54px 54px;mask-image:radial-gradient(120% 120% at 16% 42%,#000 30%,transparent 74%)}
   .hero-steel-cut{position:absolute;top:0;right:0;bottom:0;width:46%;z-index:1;background:linear-gradient(155deg,#1e2126,#0f1115);clip-path:polygon(17% 0,100% 0,100% 100%,0% 100%);overflow:hidden}
-  .hero-steel-cut::before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(72% 62% at 60% 22%,rgba(255,199,44,.24),transparent 62%)}
-  .hero-steel-cut .steelwork{position:absolute;top:50%;left:56%;transform:translate(-50%,-50%);width:80%;height:auto;z-index:2}
-  .hero-steel-cut canvas{position:absolute;inset:0;width:100%;height:100%;z-index:3}
-  .hero-steel-cut .steel-tag{position:absolute;left:18%;bottom:30px;z-index:4;font-size:.62rem;letter-spacing:.22em;font-weight:800;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:.45rem .85rem .45rem 1.1rem;clip-path:polygon(0 0,100% 0,90% 100%,0 100%)}
+  .hero-steel-cut .cut-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 52%;z-index:1}
+  .hero-steel-cut::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(160deg,rgba(15,17,21,.34) 0%,rgba(15,17,21,.5) 55%,rgba(15,17,21,.82) 100%)}
+  .hero-steel-cut::before{content:"";position:absolute;inset:0;z-index:3;background:radial-gradient(70% 55% at 62% 18%,rgba(255,199,44,.20),transparent 60%);mix-blend-mode:screen}
+  .hero-steel-cut canvas{position:absolute;inset:0;width:100%;height:100%;z-index:4}
+  .hero-steel-cut .steel-tag{position:absolute;left:18%;bottom:30px;z-index:5;font-size:.62rem;letter-spacing:.22em;font-weight:800;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:.45rem .85rem .45rem 1.1rem;clip-path:polygon(0 0,100% 0,90% 100%,0 100%)}
   .hero .wrap{position:relative;z-index:3;width:100%;padding-top:5.5rem;padding-bottom:3rem}
   .hero-content{max-width:560px}
   .hero-eyebrow{display:inline-flex;align-items:center;gap:.7rem;font-size:.78rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:1.3rem}
@@ -208,8 +209,8 @@
   .feature{background:linear-gradient(160deg,#1a1d21 0%,#191b1f 55%,#15171a 100%);color:#fff;position:relative;overflow:hidden}
   .feature::before{content:"";position:absolute;top:-20%;left:-10%;width:55%;height:140%;background:radial-gradient(circle at center,rgba(255,199,44,.14),transparent 60%);pointer-events:none}
   .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center;position:relative;z-index:2}
-  .feature-media{position:relative;border-radius:var(--r-lg);overflow:hidden;background:radial-gradient(120% 120% at 50% 0%,#fdfdfd,#dfe2e5);border:1px solid rgba(255,255,255,.12);padding:1.5rem;box-shadow:var(--shadow)}
-  .feature-media img{width:100%;height:auto;mix-blend-mode:multiply;filter:contrast(1.04)}
+  .feature-media{position:relative;border-radius:var(--r-lg);overflow:hidden;background:#0f1115;border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
+  .feature-media img{display:block;width:100%;height:auto}
   .feature-media .tag{position:absolute;top:1rem;left:1rem;background:var(--ink);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.45rem .8rem;border-radius:6px}
   .feature-media .tag b{color:var(--gold)}
   .feature h2{font-size:clamp(1.9rem,1.2rem + 2.6vw,2.9rem)}
@@ -362,6 +363,17 @@
   .team-note{margin-top:1.9rem;font-size:.86rem;color:var(--on-dark-mute);max-width:60ch}
   @media (max-width:880px){.team-grid{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:560px){.team-grid{grid-template-columns:1fr}}
+
+  /* ===== inside-our-workshop gallery ===== */
+  .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .shop-grid figure{margin:0;position:relative;overflow:hidden;border-radius:var(--r);border:1px solid var(--line-light);aspect-ratio:4/3;box-shadow:0 16px 34px -24px rgba(0,0,0,.45)}
+  .shop-grid figure.feat{grid-column:1/-1;aspect-ratio:16/6}
+  .shop-grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+  .shop-grid figure:hover img{transform:scale(1.05)}
+  .shop-grid figure::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.4));pointer-events:none}
+  .shop-grid figcaption{position:absolute;left:0;bottom:0;z-index:2;font-size:.66rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:.4rem .7rem .4rem .9rem;clip-path:polygon(0 0,100% 0,90% 100%,0 100%)}
+  @media (max-width:760px){.shop-grid{grid-template-columns:repeat(2,1fr)}.shop-grid figure.feat{aspect-ratio:16/9}}
+  @media (max-width:460px){.shop-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -408,22 +420,9 @@
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
   <div class="hero-grid-bg" aria-hidden="true"></div>
-  <div class="hero-steel-cut" aria-hidden="true">
-    <svg class="steelwork" viewBox="0 0 400 360" fill="none" stroke="#FFC72C" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Illustration of a multi-bay structural steel building frame">
-      <path d="M48 300 H300" stroke-width="1" opacity="0.2"/>
-      <g stroke-width="1" opacity="0.5"><path d="M72 308 l6 -6 M79 308 l6 -6 M86 308 l6 -6 M232 308 l6 -6 M239 308 l6 -6 M246 308 l6 -6"/></g>
-      <g stroke-width="1" opacity="0.5">
-        <path d="M106 149 L194 105 M133 136 L221 92 M214 149 L302 105 M187 136 L275 92"/>
-        <path d="M80 231 L168 187 M240 231 L328 187" opacity="0.85"/>
-        <path d="M80 162 L168 256 M168 118 L80 300"/>
-      </g>
-      <path d="M80 300 L80 162 L160 122 L240 162 L240 300" stroke-width="2"/>
-      <path d="M168 256 L168 118 L248 78 L328 118 L328 256" stroke-width="2"/>
-      <path d="M80 162 L168 118 M240 162 L328 118 M160 122 L248 78 M80 300 L168 256 M240 300 L328 256" stroke-width="2"/>
-      <path d="M70 300 H90 M230 300 H250 M158 256 H178 M318 256 H338" stroke-width="3"/>
-      <g fill="#FFC72C" stroke="none"><circle cx="80" cy="162" r="3"/><circle cx="240" cy="162" r="3"/><circle cx="160" cy="122" r="3"/><circle cx="168" cy="118" r="3"/><circle cx="328" cy="118" r="3"/><circle cx="248" cy="78" r="3"/></g>
-    </svg>
-    <canvas id="embers"></canvas>
+  <div class="hero-steel-cut">
+    <img class="cut-photo" src="assets/photos/workshop.jpg" alt="Inside the Fabrico workshop in Swadlincote — steel fabrication under the overhead gantry crane" />
+    <canvas id="embers" aria-hidden="true"></canvas>
     <span class="steel-tag">Structural Steelwork</span>
   </div>
   <div class="eng-frame" aria-hidden="true">
@@ -612,33 +611,8 @@
   <div class="wrap">
     <div class="feature-grid">
       <div class="feature-media reveal">
-        <span class="tag">Concept sketch · <b>steel container</b></span>
-        <svg class="sketch" viewBox="0 0 480 400" role="img" aria-label="Engineering concept sketch of a fabricated containerised steel enclosure with an internal frame and dimension lines" style="width:100%;height:auto;display:block" xmlns="http://www.w3.org/2000/svg">
-          <defs><pattern id="encGrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#eef0f1" stroke-width="1"/></pattern></defs>
-          <rect x="12" y="12" width="456" height="376" fill="url(#encGrid)"/>
-          <rect x="12" y="12" width="456" height="376" rx="6" fill="none" stroke="#e0e3e6" stroke-width="1.5"/>
-          <path d="M98 276 L162 238 M162 238 L162 98 M162 238 L372 294" fill="none" stroke="#cfd3d6" stroke-width="1" stroke-dasharray="4 4"/>
-          <path d="M167.3 154.5 L231.3 116.5 M236.6 173 L300.6 135" fill="none" stroke="#cfd3d6" stroke-width="1"/>
-          <path d="M150.5 290 L150.5 150 M203 304 L203 164 M255.5 318 L255.5 178 M98 229.8 L308 285.8 M98 183.6 L308 239.6" fill="none" stroke="#7c8187" stroke-width="1.3" stroke-linecap="round"/>
-          <path d="M308 332 L372 154 M308 192 L372 294" fill="none" stroke="#aab0b5" stroke-width="1.1"/>
-          <path d="M98 276 L308 332 M308 332 L308 192 M308 192 L98 136 M98 136 L98 276 M98 136 L162 98 M162 98 L372 154 M372 154 L308 192 M308 332 L372 294 M372 294 L372 154" fill="none" stroke="#2b3036" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-          <g fill="#FFC72C" stroke="#2b3036" stroke-width="1">
-            <rect x="93" y="272" width="10" height="8"/><rect x="303" y="328" width="10" height="8"/><rect x="303" y="188" width="10" height="8"/><rect x="93" y="132" width="10" height="8"/><rect x="157" y="94" width="10" height="8"/><rect x="367" y="150" width="10" height="8"/><rect x="367" y="290" width="10" height="8"/>
-          </g>
-          <g stroke="#9aa0a6" stroke-width="1" fill="none" stroke-linecap="round">
-            <path d="M74 136 L74 276"/><path d="M74 136 L98 136" stroke="#c8ccd0" stroke-width="0.8"/><path d="M74 276 L98 276" stroke="#c8ccd0" stroke-width="0.8"/>
-            <path d="M70 140 L78 132"/><path d="M70 280 L78 272"/>
-            <path d="M92.3 297.3 L302.3 353.3"/><path d="M98 276 L92.3 297.3" stroke="#c8ccd0" stroke-width="0.8"/><path d="M308 332 L302.3 353.3" stroke="#c8ccd0" stroke-width="0.8"/>
-            <path d="M88 294 L96 301"/><path d="M298 350 L306 357"/>
-          </g>
-          <text x="60" y="210" fill="#6b6f75" font-family="Raleway,sans-serif" font-size="13" font-weight="600" text-anchor="middle">H</text>
-          <text x="188" y="344" fill="#6b6f75" font-family="Raleway,sans-serif" font-size="13" font-weight="600" text-anchor="middle">L</text>
-          <g stroke="#FFC72C" stroke-width="2" stroke-linecap="round"><path d="M432 41 L432 79 M413 60 L451 60 M420 48 L444 72 M444 48 L420 72"/></g>
-          <circle cx="432" cy="60" r="3" fill="#FFC72C"/>
-          <path d="M16 370 L464 370" stroke="#ebedef" stroke-width="1"/>
-          <text x="18" y="384" fill="#9aa0a6" font-family="Raleway,sans-serif" font-size="9" letter-spacing="1.1">FABRICO · CONTAINERISED STEEL ENCLOSURE</text>
-          <text x="462" y="384" fill="#9aa0a6" font-family="Raleway,sans-serif" font-size="9" letter-spacing="1.1" text-anchor="end">GENERAL ARRANGEMENT — NTS</text>
-        </svg>
+        <span class="tag">Real build · <b>container conversion</b></span>
+        <img src="assets/photos/container.jpg" alt="A standard steel shipping container being converted at the Fabrico workshop — one side cut out and reframed to a custom design" loading="lazy" />
       </div>
       <div class="reveal" data-d="1">
         <span class="eyebrow">Containers &amp; steel structures</span>
@@ -653,6 +627,23 @@
         <div style="margin-top:1.8rem"><a class="arrow-link" href="#contact">Discuss a build with us
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIDE OUR WORKSHOP ============ -->
+<section class="sec" id="workshop">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Inside our workshop</span>
+      <h2>Real steel, real shop floor</h2>
+      <p class="lead">No stock photos. This is our unit in Swadlincote, and the work passing across the floor.</p>
+    </div>
+    <div class="shop-grid">
+      <figure class="feat reveal"><img src="assets/photos/workshop-wide.jpg" alt="Wide view of the Fabrico steel fabrication workshop in Swadlincote, with overhead gantry crane and a welded container frame" loading="lazy" /><figcaption>Our Swadlincote workshop</figcaption></figure>
+      <figure class="reveal"><img src="assets/photos/steel-beams.jpg" alt="Red-oxide primed structural steel beams laid out on the workshop floor" loading="lazy" /><figcaption>Primed structural beams</figcaption></figure>
+      <figure class="reveal" data-d="1"><img src="assets/photos/steel-frame.jpg" alt="A welded steel frame fabricated at Fabrico" loading="lazy" /><figcaption>Welded steel frame</figcaption></figure>
+      <figure class="reveal" data-d="2"><img src="assets/photos/steel-bundle.jpg" alt="Fabricated steel sections wrapped and palletised, ready for delivery" loading="lazy" /><figcaption>Fabricated, ready to ship</figcaption></figure>
     </div>
   </div>
 </section>
