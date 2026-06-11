@@ -153,10 +153,13 @@
   @keyframes wheel{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}60%{opacity:1;transform:translate(-50%,9px)}100%{opacity:0;transform:translate(-50%,12px)}}
 
   @media (max-width:900px){
-    .hero{min-height:auto;padding-block:2.5rem 3rem}
-    .hero-steel-cut,.scroll-cue{display:none}
+    .hero{min-height:auto;flex-direction:column;align-items:stretch;padding-block:2.4rem 0}
+    .scroll-cue,.eng-frame{display:none}
     .hero-content{max-width:none}
     .hero .sub{max-width:46ch}
+    .hero .wrap{order:1}
+    .hero-steel-cut{display:block;position:relative;inset:auto;width:auto;order:2;aspect-ratio:16/10;clip-path:none;margin-top:2.3rem}
+    .hero-steel-cut::after{background:linear-gradient(180deg,rgba(15,17,21,.08),rgba(15,17,21,.08) 52%,rgba(15,17,21,.7))}
   }
 
   /* ============ TRUST STRIP ============ */
