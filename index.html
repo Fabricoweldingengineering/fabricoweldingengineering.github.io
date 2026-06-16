@@ -825,6 +825,10 @@
         </div>
       </div>
       <form class="quote reveal" data-d="1" id="quoteForm">
+        <input type="hidden" name="_subject" value="New website enquiry — Fabrico" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
         <div class="fg"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Your name" required /></div>
         <div class="row2">
           <div class="fg"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@company.com" required /></div>
@@ -843,7 +847,7 @@
         <button class="btn lg" type="submit">Send enquiry
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>
-        <p class="formnote">This opens your email app with the details ready to send. Prefer to call? <a href="tel:01530264554" style="color:var(--gold)">01530&nbsp;264554</a></p>
+        <p class="formnote" id="formStatus" role="status" aria-live="polite">Sends straight to our inbox — we usually reply the same day. Prefer to call? <a href="tel:01530264554" style="color:var(--gold)">01530&nbsp;264554</a></p>
       </form>
     </div>
   </div>
@@ -924,21 +928,30 @@
   /* ---- year ---- */
   try { document.getElementById('year').textContent = new Date().getFullYear(); } catch(e){}
 
-  /* ---- quote form -> mailto ---- */
+  /* ---- quote form -> Formsubmit (mailto fallback) ---- */
   var form = document.getElementById('quoteForm');
   if(form){
+    var status = document.getElementById('formStatus');
     form.addEventListener('submit', function(ev){
       ev.preventDefault();
-      var f = form;
-      var subject = 'Website enquiry — ' + (f.service.value || 'Steel fabrication');
-      var body = 'Name: ' + f.name.value + '\n'
-               + 'Email: ' + f.email.value + '\n'
-               + 'Phone: ' + (f.phone.value || '-') + '\n'
-               + 'Service: ' + f.service.value + '\n\n'
-               + f.message.value + '\n';
-      window.location.href = 'mailto:Office@fabricoweldingengineering.com'
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(body);
+      if(form._honey && form._honey.value){ return; }
+      var btn = form.querySelector('button[type=submit]');
+      var btnHtml = btn.innerHTML;
+      btn.disabled = true; btn.textContent = 'Sending…';
+      if(status){ status.style.color = ''; status.textContent = ''; }
+      fetch('https://formsubmit.co/ajax/Office@fabricoweldingengineering.com', {
+        method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form)
+      }).then(function(r){ if(!r.ok){ throw new Error('http ' + r.status); } return r.json().catch(function(){ return {}; }); }).then(function(){
+        form.reset(); btn.disabled = false; btn.innerHTML = btnHtml;
+        if(status){ status.style.color = '#46c98a'; status.textContent = 'Thanks — your enquiry has been sent. We’ll be in touch shortly.'; }
+      }).catch(function(){
+        btn.disabled = false; btn.innerHTML = btnHtml;
+        var f = form;
+        var subject = 'Website enquiry — ' + (f.service.value || 'Steel fabrication');
+        var body = 'Name: ' + f.name.value + '\nEmail: ' + f.email.value + '\nPhone: ' + (f.phone.value || '-') + '\nService: ' + f.service.value + '\n\n' + f.message.value + '\n';
+        if(status){ status.style.color = 'var(--gold)'; status.textContent = 'Couldn’t send automatically — opening your email app instead.'; }
+        window.location.href = 'mailto:Office@fabricoweldingengineering.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      });
     });
   }
 
